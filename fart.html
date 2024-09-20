@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grade Calculator</title>
+    <!--- CSS -->
+    <style>
+        .result {
+            background-color: #e7f3e7;
+            padding: 10px;
+            border-left: 5px solid #ffe100;
+            font-size: 18px;
+        }
+        body {
+            background-image: url('grass.gif');
+            background-size: cover;
+        }
+        h1 {
+            color: gold;
+            text-align: center;
+        }
+        .container {
+            width: 80%;
+            margin: 20px auto;
+            background-color: #370000;
+            padding: 20px;
+            border: 10px outset rgb(255, 217, 0);
+            text-align: center;
+            color: rgb(241, 9, 9);
+            box-shadow: 0 0 100px #f50000;
+        }
+        h2 {
+            color: rgb(226, 178, 2);
+        }
+        .gold-text {
+            color: gold;
+        }
+        .box {
+            border: outset gold 5px;
+            margin: auto;
+            width: 15%;
+            background-color:#370000;
+        }
+        .description {
+            padding: 10px;
+            float: none;
+            margin: auto;
+            background-color: #200101;
+            border: gold outset 5px;
+            width: 50%;
+            text-align: center;
+            box-shadow: 0 0 10px #9ecaed;
+        }
+        p {
+            letter-spacing: 2px;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+    </style>
+    <!-- Pyscript -->
+    <link rel="stylesheet" href="https://pyscript.net/latest/pyscript.css" />
+    <script defer src="https://pyscript.net/latest/pyscript.js"></script>
+</head>
+<body>
+    <section class="container">
+        <img src="perps.png" height="200" width="200">
+        <h1>FUNDAMENTALS OF PROGRAMMING <br> PRELIM LAB REQUIREMENT 2</h1>
+        <article>
+            <h2>Grade calculator based on University of Perpetual Help System Dalta</h2>
+            <br>
+            <p>
+                <div class="container">
+                    <h1>ENTER YOUR PRELIM GRADE</h1>
+                    <!-- Button -->
+                    <form>
+                    <input type="number" id="student_prelim" name="student_prelim" must style="border: 5px outset gold;">
+                    <br><br>
+                    <button class="box gold-text" id="fart" type="submit" style="background-color: #871b00;">
+                        <h1><strong>▷</strong></h1>
+                    </button>
+                </form>
+                    <br><br>
+                    <div class="result, description">
+                        <h2>Results:</h2>
+                        <p class="gold-text description">Your Prelim Grade: <strong id="prelim_result" style="font-weight: bold; color: red;"></strong> <strong id="prelim" style="color: greenyellow;"><strong style="color: white;"><br>Insert your prelim grade first.</strong></strong></p>
+                        <br>
+                        <p class="gold-text" style="font-family: Arial, Helvetica, sans-serif;">Assuming you will get an equal grade on midterm and final, to pass with an overall grade of <strong style="color: greenyellow;">75</strong>, you need at least:</p>
+                        <br>
+                        <p class="gold-text description">Midterm Grade: <strong id="midterm" style="color: greenyellow;"><strong style="color: white;"><br>Insert your prelim grade first.</strong></strong></p>
+                        <br>
+                        <p class="gold-text description">Final Grade: <strong id="final" style="color: greenyellow;"><strong style="color: white;"><br>Insert your prelim grade first.</strong></strong></p>
+                        <br>
+                        <p class="description gold-text">Dean's List Checker:<br><strong id="deannlister_result"><strong style="color: white;"><br>Insert your prelim grade first</strong><br><br>Note: Students must have greater than or equal to<span style="color: greenyellow;"> 90</span> overall grade in order to attain Dean's list.</strong></p>
+                        <br>
+                    </div>
+                </div>
+            </p>
+        </article>   
+    </section>
+    <footer class="container">
+        <p class="description gold-text">Project by Hoby Ace Jerico S. Josol <br> 📃For educational purposes only📃 <img src="hoby.jpg" height="300" width="300" style="border: gold outset 5px;"></p>
+        <br><br><p class="gold-text">Philippians 4:6<br>"Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God."</p>
+    </footer>
+
+    <!-- Python -->
+<py-script>
+        from pyscript import Element as Fart
+
+def prelim_debugger(student_prelim):
+# To hide errors when code is working!
+    if student_prelim > 100:
+        return ""
+    else:
+        return ""
+
+
+# Error checker
+def is_valid_number(value):
+    try:
+        float(value)
+        return True
+    except ValueError:
+        return False
+
+        # Dean's list code
+def if_deannlister(student_prelim):
+    if student_prelim >= 69:
+        must_deannlister = 90.0
+        scored_deannlister = must_deannlister - (0.20 * student_prelim)
+        must_midterm_deannlister = must_final_deannlister = scored_deannlister / 0.80
+        return f"\n✅\n\nAttain {must_midterm_deannlister:.2f} grade for both midterm and finals to get an overall 90 grade for Dean's list!🥳\n\n(assuming you will get equal grades on midterm and finals)"
+    return "\n👎\n\nNot Possible with that grade in prelim man!\n💔😿\n\n Student must attain 90 and above as overall grade to be on Dean's list."
+
+        # Visuals for errors and results
+def computer(event):
+    event.preventDefault()  # Prevent the default form submission behavior
+    student_prelim = Fart("student_prelim").element.value
+    if not is_valid_number(student_prelim):
+        Fart("prelim_result").element.innerText = "\n⚠️Error⚠️\n\n Please input a valid grade number value."
+        Fart("deannlister_result").element.innerText = "⚠️"
+        Fart("prelim").element.innerText = ""
+        Fart("midterm").element.innerText = "⚠️"
+        Fart("final").element.innerText = "⚠️"
+        return
+
+    student_prelim = float(student_prelim)
+    if student_prelim > 100.0:
+        Fart("prelim_result").element.innerText = "\n⚠️Error⚠️\n\n Please input a grade value between (0-100)"
+        Fart("deannlister_result").element.innerText = "⚠️"
+        Fart("prelim").element.innerText = ""
+        Fart("midterm").element.innerText = "⚠️"
+        Fart("final").element.innerText = "⚠️"
+        return
+ 
+        # Grade tool
+    Fart("prelim").element.innerText = f"{student_prelim}"
+    prelim_result = prelim_debugger(student_prelim)
+    target_final_grade = 75.0
+    scored_grade = target_final_grade - (0.20 * student_prelim)
+    must_midterm_grade = must_final_grade = scored_grade / 0.80
+    midterm = f"{must_midterm_grade:.2f}"
+    final = f"{must_final_grade:.2f}"
+    deannlister_result = if_deannlister(student_prelim)
+
+    Fart("prelim_result").element.innerText = prelim_result
+    Fart("midterm").element.innerText = midterm
+    Fart("final").element.innerText = final
+    Fart("deannlister_result").element.innerText = deannlister_result
+    Fart("student_prelim").element.value = ""
+
+Fart("fart").element.onclick = computer # For working submit button!!
+    </py-script>
+</body>
+</html>

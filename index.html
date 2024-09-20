@@ -82,7 +82,7 @@
                     <br><br>
                     <div class="result, description">
                         <h2>Results:</h2>
-                        <p class="gold-text description">Your Prelim Grade: <strong id="prelim_result" style="font-weight: bold; color: red;"></strong> <strong id="prelim" style="color: greenyellow;"><strong style="color: white;"><br>Insert your prelim grade first.</strong></strong></p>
+                        <p class="gold-text description">Your Prelim Grade:<br><strong id="prelim_result" style="font-weight: bold; color: red;"></strong> <strong id="prelim" style="color: greenyellow;"><strong style="color: white;"><br>Insert your prelim grade first.</strong></strong></p>
                         <br>
                         <p class="gold-text" style="font-family: Arial, Helvetica, sans-serif;">Assuming you will get an equal grade on midterm and final, to pass with an overall grade of <strong style="color: greenyellow;">75</strong>, you need at least:</p>
                         <br>
@@ -107,11 +107,11 @@
         from pyscript import Element as Fart
 
 def prelim_debugger(student_prelim):
-# To hide errors when code is working!
-    if student_prelim > 100:
-        return ""
+# Pass Chance!!
+    if student_prelim <= 31 :
+        return "That's quite hard to pass, extra hard work from now on.😔"
     else:
-        return ""
+        return "You have a chance to pass!🎉"
 
 
 # Error checker

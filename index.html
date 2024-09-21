@@ -71,18 +71,19 @@
             <p>
                 <div class="container">
                     <h1>ENTER YOUR PRELIM GRADE</h1>
-                    <!-- Button -->
+                    <!-- Input -->
                     <form>
-                    <input type="number" id="student_prelim" name="student_prelim" must style="border: 5px outset gold;">
+                    <input type="number" id="student_prelim" name="student_prelim" style="border: 5px outset gold;" step="0.01" required>
                     <br><br>
                     <button class="box gold-text" id="fart" type="submit" style="background-color: #871b00;">
                         <h1><strong>▷</strong></h1>
                     </button>
                 </form>
                     <br><br>
+                    <!-- Result -->
                     <div class="result, description">
                         <h2>Results:</h2>
-                        <p class="gold-text description">Your Prelim Grade:<br><strong id="prelim_result" style="font-weight: bold; color: red;"></strong> <strong id="prelim" style="color: greenyellow;"><strong style="color: white;"><br>Insert your prelim grade first.</strong></strong></p>
+                        <p class="gold-text description">Your Prelim Grade:<br><strong id="prelim_result" style="font-weight: bold; color: #A5BA93;"></strong> <strong id="prelim" style="color: greenyellow;"><strong style="color: white;"><br>Insert your prelim grade first.</strong></strong></p>
                         <br>
                         <p class="gold-text" style="font-family: Arial, Helvetica, sans-serif;">Assuming you will get an equal grade on midterm and final, to pass with an overall grade of <strong style="color: greenyellow;">75</strong>, you need at least:</p>
                         <br>
@@ -90,7 +91,7 @@
                         <br>
                         <p class="gold-text description">Final Grade: <strong id="final" style="color: greenyellow;"><strong style="color: white;"><br>Insert your prelim grade first.</strong></strong></p>
                         <br>
-                        <p class="description gold-text">Dean's List Checker:<br><strong id="deannlister_result"><strong style="color: white;"><br>Insert your prelim grade first</strong><br><br>Note: Students must have greater than or equal to<span style="color: greenyellow;"> 90</span> overall grade in order to attain Dean's list.</strong></p>
+                        <p class="description gold-text">Dean's List Checker:<br><strong id="deannlister_result" style="color: #A5BA93;"><strong style="color: white;"><br>Insert your prelim grade first</strong><br><br>Note: Students must have greater than or equal to<span style="color: greenyellow;"> 90</span> overall grade in order to attain Dean's list.</strong></p>
                         <br>
                     </div>
                 </div>
@@ -98,7 +99,7 @@
         </article>   
     </section>
     <footer class="container">
-        <p class="description gold-text">Project by Hoby Ace Jerico S. Josol <br> 📃For educational purposes only📃 <img src="hoby.jpg" height="300" width="300" style="border: gold outset 5px;"></p>
+        <p class="description gold-text">Project by Hoby Ace Jerico S. Josol<br><img src="hoby.jpg" height="300" width="300" style="border: gold outset 5px;"><br>🎓For educational purposes only🎓</p>
         <br><br><p class="gold-text">Philippians 4:6<br>"Do not be anxious about anything, but in every situation, by prayer and petition, with thanksgiving, present your requests to God."</p>
     </footer>
 
@@ -107,11 +108,11 @@
         from pyscript import Element as Fart
 
 def prelim_debugger(student_prelim):
-# Pass Chance!!
+# Chance to pass checker
     if student_prelim <= 31 :
-        return "That's quite hard to pass, extra hard work from now on.😔"
+        return "😨That's quite hard to pass😨\n Time to work harder from now on.😔"
     else:
-        return "You have a chance to pass!🎉"
+        return "😌\nYou have a chance to pass!🎉"
 
 
 # Error checker
@@ -122,18 +123,18 @@ def is_valid_number(value):
     except ValueError:
         return False
 
-        # Dean's list code
+        # Dean's list calculator and message
 def if_deannlister(student_prelim):
-    if student_prelim >= 69:
-        must_deannlister = 90.0
+    if student_prelim >= 50: # prelim grades equal and greater than 50, then it will result to have a chance for dean's list
+        must_deannlister = 90.0 # must be 90 overall for dean's list
         scored_deannlister = must_deannlister - (0.20 * student_prelim)
         must_midterm_deannlister = must_final_deannlister = scored_deannlister / 0.80
         return f"\n✅\n\nAttain {must_midterm_deannlister:.2f} grade for both midterm and finals to get an overall 90 grade for Dean's list!🥳\n\n(assuming you will get equal grades on midterm and finals)"
     return "\n👎\n\nNot Possible with that grade in prelim man!\n💔😿\n\n Student must attain 90 and above as overall grade to be on Dean's list."
 
-        # Visuals for errors and results
+        # Stops characters other than numbers as input
 def computer(event):
-    event.preventDefault()  # Prevent the default form submission behavior
+    event.preventDefault()  # prevents restarting the page on input
     student_prelim = Fart("student_prelim").element.value
     if not is_valid_number(student_prelim):
         Fart("prelim_result").element.innerText = "\n⚠️Error⚠️\n\n Please input a valid grade number value."
@@ -143,8 +144,9 @@ def computer(event):
         Fart("final").element.innerText = "⚠️"
         return
 
+        # Keeps input grade from 0 to 100
     student_prelim = float(student_prelim)
-    if student_prelim > 100.0:
+    if student_prelim > 100.0 or student_prelim < 0.0:
         Fart("prelim_result").element.innerText = "\n⚠️Error⚠️\n\n Please input a grade value between (0-100)"
         Fart("deannlister_result").element.innerText = "⚠️"
         Fart("prelim").element.innerText = ""
@@ -154,14 +156,15 @@ def computer(event):
  
         # Grade tool
     Fart("prelim").element.innerText = f"{student_prelim}"
-    prelim_result = prelim_debugger(student_prelim)
-    target_final_grade = 75.0
-    scored_grade = target_final_grade - (0.20 * student_prelim)
-    must_midterm_grade = must_final_grade = scored_grade / 0.80
-    midterm = f"{must_midterm_grade:.2f}"
-    final = f"{must_final_grade:.2f}"
-    deannlister_result = if_deannlister(student_prelim)
+    prelim_result = prelim_debugger(student_prelim) # for rendering the chance to pass message
+    target_overall_grade = 75.0 # overall grade requirement
+    scored_grade = target_overall_grade - (0.20 * student_prelim) # overall grade requirement - prelim as 20% of overall grade x student's input grade
+    must_midterm_grade = must_final_grade = scored_grade / 0.80 # computed student prelim grade / midterm 30% and finals 50% (80%)
+    midterm = f"{must_midterm_grade:.2f}" # just to make midterm and finals the same
+    final = f"{must_final_grade:.2f}" # just to make midterm and finals the same
+    deannlister_result = if_deannlister(student_prelim) # Dean's list checker
 
+       # For rendering results in html
     Fart("prelim_result").element.innerText = prelim_result
     Fart("midterm").element.innerText = midterm
     Fart("final").element.innerText = final
